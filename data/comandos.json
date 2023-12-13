@@ -1,0 +1,18 @@
+{
+    "clear":
+    {
+        "desc":"Limpa a tela"
+    },
+    "display":
+    {
+        "desc":"Mostra informações de sistema"
+    },
+    "now":
+    {
+        "desc":"Mostra o dia e a hora atual"
+    },
+    "help":
+    {
+        "desc":"Mostra o guia de comandos"
+    }
+}
