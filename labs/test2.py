@@ -1,22 +1,32 @@
 import threading
 import sys
 import curses
+import time
 
 def get_user_input(window):
     user_input = ""
+    window.timeout(0)  # Set non-blocking mode
     while True:
         char = window.getch()
 
-        with open('test.txt', 'a+') as file:
-            file.write(chr(char))
+        if char != -1:  # Check if a key is pressed
+            if char == 10:  # Enter key
+                break
 
-        sys.stdout.write(chr(char))
-        sys.stdout.flush()
+            try:
+                char_str = chr(char)
+            except ValueError:
+                continue  # Skip non-printable characters
 
-        if char == 10:  # Enter key
-            break
+            with open('test.txt', 'a+') as file:
+                file.write(char_str)
 
-        user_input += chr(char)
+            sys.stdout.write(char_str)
+            sys.stdout.flush()
+
+            user_input += char_str
+
+        time.sleep(0.01)  # Adjust the sleep time as needed for responsiveness
 
     return user_input
 

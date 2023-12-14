@@ -6,8 +6,9 @@ import os
 import keyboard
 import threading
 import time
+from visual import graph
 
-
+basedir = os.getcwd()
 with open('data/comandos.json') as file:
     comandos = json.load(file)
 
@@ -19,8 +20,14 @@ osParams ={
 def key_listener():
     while True:
         try:
+            char = window.getch()
             if keyboard.is_pressed('up'):
-                print("KEY UP")
+
+                with open('data/history.txt','r') as file:
+                    lines = file.readlines()
+                
+                last_line = lines[-1].strip()
+                print(last_line)
                 
             time.sleep(0.1)
         except:
@@ -31,26 +38,63 @@ def console():
     
 
     def now(flag):
-        print(datetime.datetime.now())
+        a=datetime.datetime.now()
+        print(a)
 
     def help(flag):
-        print(f"---------------------------------------------\n{Fore.GREEN}Command of user Mode:{Style.RESET_ALL}\n---------------------------------------------\n")
-        for i in comandos:
-            print(f"{Fore.RED}{i}{Style.RESET_ALL}: {comandos[i]['desc']}\n")
+
+        def complete():
+            command = input("~Lk (Comando): ")
+            print(f"---------------------------------------------\n{Fore.GREEN}Detalhes do comando {command}:{Style.RESET_ALL}\n---------------------------------------------\n")
+            
+            for i in comandos[command]["details"]:
+                print(f"{Fore.RED}{i}{Style.RESET_ALL}{Style.RESET_ALL}: {comandos[command]['details'][i]}")
+
+        f = {
+            "-a":complete
+        }
+
+        if flag != "":
+            f[flag]()
+        else:
+            print(f"---------------------------------------------\n{Fore.GREEN}Command of user Mode:{Style.RESET_ALL}\n---------------------------------------------\n")
+            for i in comandos:
+                print(f"{Fore.RED}{i}{Style.RESET_ALL}: {comandos[i]['desc']}\n")
 
     def clear(flag):
-        if osParams["SO"] == "Linux":
-            os.system("clear")
+        def clear_history():
+            with open('data/logs/log_comands.txt','w') as file:
+                file.write("")
+
+            print("Histórico limpo")
+
+        f ={
+            "-h":clear_history
+        }
+
+        if flag !="":
+            f[flag]()
         else:
-            os.system("cls")
+            if osParams["SO"] == "Linux":
+                os.system("clear")
+            else:
+                os.system("cls")
+
+    def history(flag):
+        with open('data/logs/log_comands.txt','r') as file:
+            for line in file:
+                print(line)
+            print("\n")
 
     def display(flag):
     
-        def interfaces_():
-            print("interfaces")
+        def sample_():
+            with open('data/sample.json') as file:
+                data = json.load(file)
+                print(data)
         
         t_display={
-            "interfaces":interfaces_
+            "sample":sample_
         }
 
         
@@ -67,17 +111,57 @@ def console():
             print(f"Comando {flag} é desconhecido ou inválido neste contexto {Fore.RED}{type(e)}{Style.RESET_ALL}")
             return
 
+    def build(flag):
+
+        def graph_():
+
+            amostra = input("~Lk (Amostra): ")
+            vs = graph.graphs(basedir,amostra)
+
+
+            def bar():
+                vs.bar()
+
+            print(f"Build para {amostra} concluído \n")
+            
+            while True:
+
+                t_graph ={
+                    "bar":bar
+                }
+
+                cmd =  input(f"~Lk ({amostra}): ")
+                if cmf == "quit":
+                    return
+                else:
+                    t_graph[cmd]()
+
+
+        t_build = {
+            "graph":graph_,
+        }
+
+        if flag != "":
+            pass
+        else:
+            flag = input("~display flag: ")
+        
+        t_build[flag]()
+
+
+
     t = {
         "clear":clear,
         "display":display,
         "now":now,
-        "help":help
+        "help":help,
+        "history":history,
+        "build":build
     }
 
 
     while True:
         try:
-            clear("")
             cmd = input("~Lk: ") + " "
             
             if cmd == " ":
@@ -86,7 +170,11 @@ def console():
                 flags = cmd.split(" ")
 
                 with open('data/history.txt','a+') as file:
-                    file.write(" ".join(flags)+"\n")
+                    file.writelines("\n"+f" ".join(flags))
+                    file.close()
+
+                with open('data/logs/log_comands.txt','a+') as file:
+                    file.writelines("\n"+f":{datetime.datetime.now()} ".join(flags))
                     file.close()
 
                 t[flags[0]](flags[1])

@@ -1,32 +1,40 @@
-now 
+
+history 
+history 
+clear -h 
+history 
+clear 
+help 
+help -a 
+help -a 
+clear 
+help -a 
+clear 
+help -a 
+display sample 
+clear 
+help 
+hel -a 
+help -a 
+clear 
+history 
+clear -h 
+history 
 clear 
 clear 
-qqqq 
+build graph 
+build 
+build graph 
+build 
+build graph 
+build graph 
+build graph 
+build graph 
+build 
 clear 
-qs 
-qq 
-clear 
-q 
-q 
-q 
-q 
-q 
-clear 
-q 
-clear 
-[A 
-[A[A[A[As 
-clear 
-[Aclear 
-cler 
-clear 
-[A 
-[A[A 
-clear 
-clear 
-clear 
-c 
-clear 
-[A 
-[A[A[A[Al 
-clear 
+build graph 
+build 
+build graph 
+build 
+build 
+build graph 

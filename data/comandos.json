@@ -1,11 +1,23 @@
 {
     "clear":
     {
-        "desc":"Limpa a tela"
+        "desc":"Limpa a tela",
+        "details":{
+            "funcionamento":"O comando clear é responsável por limpeza de informações do sistema",
+            "flags":{
+                "-h":"Limpa o histórico de comandos"
+            }
+        }
     },
     "display":
     {
-        "desc":"Mostra informações de sistema"
+        "desc":"Mostra informações de sistema e visualização de data",
+        "details":{
+            "funcionamento":"O comando display é utilzado para visualização de dados, para visualizar amostras basta digitar: display [nome da amostra], ex: display sample",
+            "amostras":{
+                "sample":"Dados teste e ficticios, para validação de novas funções"
+            }
+        }
     },
     "now":
     {
@@ -13,6 +25,6 @@
     },
     "help":
     {
-        "desc":"Mostra o guia de comandos"
+        "desc":"Mostra o guia de comandos, utiliza help -a para visualização detalhada, ex: help -a, precione enter, : display"
     }
 }
