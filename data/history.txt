@@ -38,3 +38,8 @@ build graph
 build 
 build 
 build graph 
+clear
+history
+clear
+clear
+clear
