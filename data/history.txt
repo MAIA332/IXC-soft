@@ -43,3 +43,10 @@ history
 clear
 clear
 clear
+clear
+history
+clear
+clear
+help
+help
+clear
