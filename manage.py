@@ -135,6 +135,7 @@ def console():
 
             def pie():
                 vs.pie()
+                print(f"Grafico de notas para {amostra} gerado")
 
             print(f"Build para {amostra} concluído \n")
             
