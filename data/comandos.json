@@ -13,7 +13,10 @@
     {
         "desc":"Mostra informações de sistema e visualização de data",
         "details":{
-            "funcionamento":"O comando display é utilzado para visualização de dados, para visualizar amostras basta digitar: display [nome da amostra], ex: display sample",
+            "funcionamento":"O comando display é utilzado para visualização de dados, para visualizar amostras basta digitar: display [flag], ex: display sample -> Exibe os dados da amostra sample",
+            "Parametros":{
+                "Boards":"Exbie todas as amostras disponíveis"
+            },
             "amostras":{
                 "sample":"Dados teste e ficticios, para validação de novas funções"
             }
@@ -26,5 +29,14 @@
     "help":
     {
         "desc":"Mostra o guia de comandos, utiliza help -a para visualização detalhada, ex: help -a, precione enter, : display"
+    },
+    "build":{
+        "desc":"Monta as instancias para processos de análise, de acordo com a interface escolhida, ex: build [interface]",
+        "details":{
+            "funcionamento":"O comando build é utilizado para que o processo/origem da análise ou processo desejado seja instanciado, trazendo as propriedades e funções de cada interface",
+            "Parametros":{
+                "feed":"Acessa a interface de Feedback, com análises históricas que são atualizadas semanalmente"
+            }
+        }
     }
 }

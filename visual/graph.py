@@ -5,25 +5,37 @@ class graphs:
         self.json = __import__("json")
         
         self.functions ={
-            "Bar":self.bar
+            "Pie":self.pie
         }
 
         
         with open(f"{basedir}/data/{data}.json") as file:
             self.data_ = self.json.load(file)
 
-        self.x = [i["Assunto BD"] for i in self.data_]
-        self.y = [i["Nota_telefone"] for i in self.data_]
+        self.a=[i["Nota_telefone"] for i in self.data_]
+        self.b= []
+        for i in self.a:
+            if i not in self.b: 
+                self.b.append(i)
+
+        self.d = [int((self.a.count(i)*100)/len(self.a)) for i in self.b]
+
         
-    def bar(self):
+    def pie(self):
         import matplotlib.pyplot as plt
 
-        pfig, ax = plt.subplots(figsize=(12, 10))
-        ax.bar(self.x,self.y, width=0.7, alpha=0.7, linewidth=0.7)
-        ax.grid(True, linestyle='--', alpha=0.7)
+        colors = ['gold', 'lightcoral', 'lightskyblue', 'orange']
+        explode = (0.1, 0, 0,0)  # Destaca o setor analisado
 
-        """ ax.set(xlim=(0, 8), xticks=self.numpy.arange(1, 8),
-            ylim=(0, 8), yticks=self.numpy.arange(1, 8)) """
-        
 
-        plt.show()
+        plt.pie(self.d, explode=explode, labels=self.b, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+
+
+        plt.title('Distribuição de notas x feedback')
+
+
+        plt.axis('equal')  # Para certificar que seja circular
+        plt.ioff()
+        plt.show(block=False)
+
+        plt.pause(0.001)

@@ -55,7 +55,7 @@ def console():
             print(f"---------------------------------------------\n{Fore.GREEN}Detalhes do comando {command}:{Style.RESET_ALL}\n---------------------------------------------\n")
             
             for i in comandos[command]["details"]:
-                print(f"{Fore.RED}{i}{Style.RESET_ALL}{Style.RESET_ALL}: {comandos[command]['details'][i]}")
+                print(f"{Fore.RED}{i}{Style.RESET_ALL}: {comandos[command]['details'][i]}")
 
         f = {
             "-a":complete
@@ -100,8 +100,15 @@ def console():
                 data = json.load(file)
                 print(data)
         
+        def Boards():
+            with open('data/amostras.json') as file:
+                data = json.load(file)
+                for i in data:
+                    print(f"\n{Fore.GREEN}{i}{Style.RESET_ALL}: {data[i]}")
+
         t_display={
-            "sample":sample_
+            "sample":sample_,
+            "boards":Boards
         }
 
         
@@ -120,42 +127,66 @@ def console():
 
     def build(flag): # Função que instância o contrutor de gráficos, baseado na amostra indicada no comando
 
-        def graph_():
+        def feedback_():
 
             amostra = input("~Lk (Amostra): ")
             vs = graph.graphs(basedir,amostra)
 
 
-            def bar():
-                vs.bar()
+            def pie():
+                vs.pie()
 
             print(f"Build para {amostra} concluído \n")
             
             while True:
 
-                t_graph ={
-                    "bar":bar
-                }
+                try:
 
-                cmd =  input(f"~Lk ({amostra}): ")
-                if cmd == "quit":
+                    t_graph ={
+                        "notas":pie,
+                        
+                    }
+
+                    cmd =  input(f"~Lk ({amostra}): ")
+                    if cmd == "quit":
+                        return
+                    else:
+                        try:
+                            t_graph[cmd]()
+                        except:
+                            a=t[cmd]("")
+
+                            if a == False:
+                                return
+                
+                except Exception as e:
+                    print(f"Não foi possível identificas os parametros passados: {e}")
+                    
+
+        try:
+            t_build = {
+                "feed":feedback_,
+            }
+
+            if flag != "":
+                pass
+            else:
+                flag = input("~display flag: ")
+            
+            try:
+                t_build[flag]()
+            except:
+                a = t[flag]("")
+
+                if a == False:
                     return
-                else:
-                    t_graph[cmd]()
-
-
-        t_build = {
-            "graph":graph_,
-        }
-
-        if flag != "":
-            pass
-        else:
-            flag = input("~display flag: ")
-        
-        t_build[flag]()
-
-
+                
+        except Exception as e:
+            print(f"Não foi possível identificas os parametros passados: {e}")
+            return
+    
+    def quit(flag):
+        return False
 
     t = { # Lista de comandos disponíveis
         "clear":clear,
@@ -163,7 +194,8 @@ def console():
         "now":now,
         "help":help,
         "history":history,
-        "build":build
+        "build":build,
+        "quit":quit
     }
 
     def completer(text, state): # Definição dos dados utilizados na função tab, para autocompletar
@@ -175,6 +207,7 @@ def console():
 
     while True: #Loop principal, para pegar os comandos e separar as flags, bem como registrar nos históricos a interação do usuário
         
+        try:
             user_input = input("~Lk: ") + " "
 
             if user_input == "exit":
@@ -199,7 +232,12 @@ def console():
                 file.writelines("\n"+f":{datetime.datetime.now()} ".join(flags))
                 file.close()
 
-            t[flags[0]](flags[1])
+            a = t[flags[0]](flags[1])
+            if a == False:
+                return
+        
+        except Exception as e:
+            print(f"Não foi possível identificas os parametros passados: {e}")
 
        
 if __name__ == "__main__": # Executa o arquivo se for chamado
