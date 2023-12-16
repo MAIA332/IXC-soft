@@ -137,6 +137,10 @@ def console():
                 vs.pie()
                 print(f"Grafico de notas para {amostra} gerado")
 
+            def hist():
+                vs.hist()
+                print(f"Grafico de assuntos para {amostra} gerado")
+
             print(f"Build para {amostra} concluído \n")
             
             while True:
@@ -145,6 +149,7 @@ def console():
 
                     t_graph ={
                         "notas":pie,
+                        "asst":hist
                         
                     }
 
@@ -224,13 +229,10 @@ def console():
             else:
                 command = user_input
 
-            flags = command.split(" ") 
-
-            with open("data/history.txt","a+") as file:
-                file.writelines("\n"+flags[0])       
+            flags = command.split(" ")   
 
             with open('data/logs/log_comands.txt','a+') as file:
-                file.writelines("\n"+f":{datetime.datetime.now()} ".join(flags))
+                file.writelines("\n"+f":{datetime.datetime.now()} ".join(flags)+"\n")
                 file.close()
 
             a = t[flags[0]](flags[1])
