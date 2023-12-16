@@ -27,6 +27,7 @@ class graphs:
         import matplotlib.pyplot as plt
 
         now = self.time.datetime.now()
+        directory = "data/images/"
 
         colors = ['gold', 'lightcoral', 'lightskyblue', 'orange']
         explode = (0.1, 0, 0,0)  # Destaca o setor analisado
@@ -40,7 +41,10 @@ class graphs:
 
         plt.axis('equal')  # Para certificar que seja circular
         plt.ioff()
+        self.os.makedirs(directory, exist_ok=True)
 
-        plt.savefig(f"data/images/{self.name}-{now}.png")
+        filepath = self.os.path.join(directory, f"{self.name}.png")
+
+        plt.savefig(filepath)
 
         plt.pause(0.001)

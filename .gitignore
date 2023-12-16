@@ -1,2 +1,5 @@
 cache/
 open-vs.sh
+ambiente_execucao/
+ativar.bat
+desativar.bat
