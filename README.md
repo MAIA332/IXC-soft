@@ -81,4 +81,4 @@ Ao executar o arquivo, irá se deparar com a seguinte tela de comando:
 - **Detalhes:**
   - **Funcionamento:** O comando `build` é utilizado para que o processo/origem da análise ou processo desejado seja instanciado, trazendo as propriedades e funções de cada interface.
   - **Parâmetros:**
-    - `feed`: Acessa a interface de Feedback, com análises históricas que são atualizadas semanalmente.
+    - `-f`: Acessa a interface de Feedback, que executará análises e geração de gráficos baseados nos dados de feedbcak, especifícados em "amostra".

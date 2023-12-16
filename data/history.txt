@@ -145,3 +145,8 @@ clear
 help
 celar
 clear
+clear
+display
+display
+clear
+build

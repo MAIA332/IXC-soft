@@ -35,7 +35,7 @@
         "details":{
             "funcionamento":"O comando build é utilizado para que o processo/origem da análise ou processo desejado seja instanciado, trazendo as propriedades e funções de cada interface",
             "Parametros":{
-                "feed":"Acessa a interface de Feedback, com análises históricas que são atualizadas semanalmente"
+                "-f":"Acessa a interface de Feedback, com análises históricas que são atualizadas semanalmente"
             }
         }
     }

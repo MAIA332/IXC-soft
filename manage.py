@@ -166,7 +166,7 @@ def console():
 
         try:
             t_build = {
-                "feed":feedback_,
+                "-f":feedback_,
             }
 
             if flag != "":
