@@ -20,18 +20,21 @@ class graphs:
             if i not in self.b: 
                 self.b.append(i)
 
-        self.d = [int((self.a.count(i)*100)/len(self.a)) for i in self.b]
-
+        d = [int((self.a.count(i)*100)/len(self.a)) for i in self.b]
+        self.d = sorted(d,reverse=True)
         
     def pie(self):
         import matplotlib.pyplot as plt
 
-        now = self.time.datetime.now()
+        z = [0.1]
+        for i in range(0,len(self.d)-1):
+            z.append(0)
+
+        explode = tuple(z)
+
         directory = "data/images/"
 
         colors = ['gold', 'lightcoral', 'lightskyblue', 'orange']
-        explode = (0.1, 0, 0,0)  # Destaca o setor analisado
-
 
         plt.pie(self.d, explode=explode, labels=self.b, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
 
