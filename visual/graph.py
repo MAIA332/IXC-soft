@@ -69,9 +69,9 @@ class graphs:
 
         self.plt.figure(figsize=(12, 6))
         self.sns.barplot(x='Data_Fechamento', y='Nota_telefone', hue='Assunto BD', data=features)
-        self.plt.title('Time Series Plot of Nota_telefone Over Time')
-        self.plt.xlabel('Date')
-        self.plt.ylabel('Nota_telefone')
+        self.plt.title('Time Series Plot para nota ao longo do tempo')
+        self.plt.xlabel('Data')
+        self.plt.ylabel('Nota Telefone')
         self.plt.xticks(rotation=45)
         self.plt.tight_layout()
         self.plt.savefig(self.filepath)
