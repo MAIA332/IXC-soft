@@ -9,6 +9,8 @@ class graphs:
         self.name = data
         self.time = __import__("datetime")
         self.directory = "data/images/"
+        self.pandas = __import__("pandas")
+        self.sns = __import__("seaborn")
         
         self.functions ={
             "Pie":self.pie
@@ -57,21 +59,21 @@ class graphs:
         self.plt.pause(0.001)
 
     def hist(self):
-        a=[i["Assunto BD"] for i in self.data_]
-        b= []
-        for i in a:
-            if i not in b: 
-                b.append(i)
+        df = self.pandas.DataFrame(self.data_)
 
-        self.plt.figure(figsize=(12, 10))
+        # Converter a coluna 'Horario_Fechamento' para formato de data e criar um campo separado para hora
+        df['Horario_Fechamento'] = self.pandas.to_datetime(df['Horario_Fechamento'], format='%d-%m-%Y:%H:%M')
+        df['Hora_Fechamento'] = df['Horario_Fechamento'].dt.time
+        df["Data_Fechamento"] = df['Horario_Fechamento'].dt.date
+        features = df.drop(["Endereço","ID_Fechamento","ID","ID_Assunto_BD","Mensagem","Assunto","Horario_Fechamento"],axis=1)
 
-        self.plt.hist(a, bins=range(0, 11), edgecolor='black', rwidth=0.8,align='mid')
-
-        self.plt.xlabel('Assuntos')
-        self.plt.ylabel('Frequency')
-        self.plt.title('Histograma de assuntos')
-        self.plt.xticks(rotation=50)
-
+        self.plt.figure(figsize=(12, 6))
+        self.sns.barplot(x='Data_Fechamento', y='Nota_telefone', hue='Assunto BD', data=features)
+        self.plt.title('Time Series Plot of Nota_telefone Over Time')
+        self.plt.xlabel('Date')
+        self.plt.ylabel('Nota_telefone')
+        self.plt.xticks(rotation=45)
+        self.plt.tight_layout()
         self.plt.savefig(self.filepath)
 
         self.plt.pause(0.001)
