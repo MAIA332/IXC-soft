@@ -65,7 +65,7 @@ class graphs:
         df['Horario_Fechamento'] = self.pandas.to_datetime(df['Horario_Fechamento'], format='%d-%m-%Y:%H:%M')
         df['Hora_Fechamento'] = df['Horario_Fechamento'].dt.time
         df["Data_Fechamento"] = df['Horario_Fechamento'].dt.date
-        features = df.drop(["Endereço","ID_Fechamento","ID","ID_Assunto_BD","Mensagem","Assunto","Horario_Fechamento"],axis=1)
+        features = df.drop(["ID_Fechamento","ID","ID_Assunto_BD","Mensagem","Assunto","Horario_Fechamento"],axis=1)
 
         self.plt.figure(figsize=(12, 6))
         self.sns.barplot(x='Data_Fechamento', y='Nota_telefone', hue='Assunto BD', data=features)
